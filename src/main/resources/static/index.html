@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bestiling av kinobilletter</title>
+  <script type="text/javascript" src="index.js"></script>
+
+  <style>
+    label{
+      display: inline-table;
+      width: 140px;
+      text-align: left;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+
+<body>
+<h1>Bestilling av kinobilletter</h1>
+<table>
+
+  <tr>
+    <lable for="film">Velg film: </lable>
+    <select id="film" name="film">
+      <option value="" selected disabled hidden>Velg film her</option>
+      <option value="The Pale Blue Eye">The Pale Blue Eye</option>
+      <option value="The menu">The Menu</option>
+      <option value="Shotgun Wedding">Shotgun Wedding</option>
+      <option value="Amsterdam">Amsterdam</option>
+    </select>
+  </tr>
+  <br><br>
+  <tr>
+    <label for="antall">Antall </label>
+    <input type="text" id="antall" name="antall" style="width: 16px">
+    <span id ="feilAntall" style="color:red;"></span>
+  </tr>
+  <br><br>
+  <tr>
+    <label for="fornavn">Fornavn </label>
+    <input type="text" id="fornavn" name="fornavn">
+    <span id="feilFornavn" style="color:red;"></span>
+  </tr>
+  <br>
+  <tr>
+    <label for="etternavn">Etternavn </label>
+    <input type="text" id="etternavn" name="etternavn">
+    <span id="feilEtternavn" style="color:red;"></span>
+  </tr>
+  <br>
+  <tr>
+    <label for="telefonnr">Telefonnr </label>
+    <input type="number" id="telefonnr" name="telefonnr">
+    <span id="feiltelefon" style="color:red;"></span>
+  </tr>
+  <br>
+  <tr>
+    <label for="epost">Epost </label>
+    <input type="text" id="epost" name="epost">
+    <span id="feilEpost" style="color: red;"></span>
+  </tr>
+  <br>
+  <tr>
+    <button onclick="registreBilletter()" type="submit">Kjøp billett</button>
+
+  </tr>
+  <br>
+  <tr>
+    <h2>Alle billetter</h2>
+    <div id="bestillingsRegister"></div>
+  </tr>
+  <br>
+  <tr>
+    <button onclick="slettAlleBilletter()" type="submit">Slett alle billettene</button>
+    <div id="slettBiletter"></div>
+
+  </tr>
+</table>
+
+
+</body>
+</html>
