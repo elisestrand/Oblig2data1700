@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 <head>
   <meta charset="UTF-8">
   <title>Bestiling av kinobilletter</title>
@@ -16,10 +18,16 @@
 </head>
 
 <body>
+<div class="container">
+  <div class="row">
+
+
 <h1>Bestilling av kinobilletter</h1>
 <table>
-
+  <div class="col-md-4">
+  <form class="form">
   <tr>
+    <div class="form-option">
     <lable for="film">Velg film: </lable>
     <select id="film" name="film">
       <option value="" selected disabled hidden>Velg film her</option>
@@ -28,55 +36,74 @@
       <option value="Shotgun Wedding">Shotgun Wedding</option>
       <option value="Amsterdam">Amsterdam</option>
     </select>
+  </div>
   </tr>
+
   <br><br>
   <tr>
+    <div class="form-group">
     <label for="antall">Antall </label>
     <input type="text" id="antall" name="antall" style="width: 16px">
     <span id ="feilAntall" style="color:red;"></span>
+    </div>
   </tr>
   <br><br>
   <tr>
+    <div class="form-group">
     <label for="fornavn">Fornavn </label>
     <input type="text" id="fornavn" name="fornavn">
     <span id="feilFornavn" style="color:red;"></span>
+    </div>
   </tr>
   <br>
   <tr>
+    <div class="form-group">
     <label for="etternavn">Etternavn </label>
     <input type="text" id="etternavn" name="etternavn">
     <span id="feilEtternavn" style="color:red;"></span>
+    </div>
   </tr>
   <br>
   <tr>
+    <div class="form-group">
     <label for="telefonnr">Telefonnr </label>
     <input type="number" id="telefonnr" name="telefonnr">
     <span id="feiltelefon" style="color:red;"></span>
+  </div>
   </tr>
   <br>
   <tr>
+    <div class="form-group">
     <label for="epost">Epost </label>
     <input type="text" id="epost" name="epost">
     <span id="feilEpost" style="color: red;"></span>
+    </div>
   </tr>
+    </form>
   <br>
   <tr>
-    <button onclick="registreBilletter()" type="submit">Kjøp billett</button>
+    <button class="btn btn-success" onclick="registreBilletter()" type="submit">Kjøp billett</button>
+
+  </tr>
+  </div>
+  <br>
+
+    <div class="col-md-8">
+  <tr>
+    <h2 style="padding-left: 300px">Alle billetter</h2>
+    <div  id="bestillingsRegister" ></div>
 
   </tr>
   <br>
   <tr>
-    <h2>Alle billetter</h2>
-    <div id="bestillingsRegister"></div>
-  </tr>
-  <br>
-  <tr>
-    <button onclick="slettAlleBilletter()" type="submit">Slett alle billettene</button>
+    <button class="btn btn-danger" onclick="slettBillett()" type="submit">Slett alle billettene</button>
     <div id="slettBiletter"></div>
+    </div>
 
   </tr>
 </table>
-
+</div>
+</div>
 
 </body>
 </html>

@@ -1,9 +1,12 @@
+let riktig = true;
 
-const bestillingInformasjon = [];
 function registreBilletter(){
+
+    const url = "http//localhost:8080/bestilling"  + $("#fornavn").val()+ $("#etternavn").val();
     document.getElementById("bestillingsRegister").innerHTML = "";
 
-    let riktig = true;
+
+
     let film = document.getElementById("film");
     let antall = document.getElementById("antall");
     let fornavn = document.getElementById("fornavn");
@@ -37,48 +40,71 @@ function registreBilletter(){
         riktig= false;
 
     }
-    if(riktig===true) {
-        let bestilling = {
-            film: film.value,
-            antall: antall.value,
-            fornavn: fornavn.value,
-            etternavn: etternavn.value,
-            telefonnr: telefonnr.value,
-            epost: epost.value
-        }
-        bestillingInformasjon.push(bestilling);
-        film.value = "blank";
-        antall.value = "";
-        fornavn.value = "";
-        etternavn.value = "";
-        telefonnr.value = "";
-        epost.value = "";
+    Billett();
+         
 
-        document.getElementById("feilAntall").innerText = "";
-        document.getElementById("feilFornavn").innerText = "";
-        document.getElementById("feilEtternavn").innerText = "";
-        document.getElementById("feiltelefon").innerText = "";
-        document.getElementById("feilEpost").innerText = "";
-
-
-        let skrivUt = "<table><tr>" +
-            "<th>Film  </th><th>Antall  </th><th>Fornavn  </th><th>Etternavn  </th><th>Telefonnr  </th><th>Epost  </th>" + "</tr>";
-
-        for (let bestilling of bestillingInformasjon) {
-            skrivUt += "<tr>";
-            skrivUt += "<td>" + bestilling.film + "</td><td>" + bestilling.antall + "</td><td>" + bestilling.fornavn + "</td><td>" + bestilling.etternavn +
-                "</td><td>" + bestilling.telefonnr + "</td><td>" + bestilling.epost + "</td>";
-            skrivUt += "</td>";
-        }
-        document.getElementById("bestillingsRegister").innerHTML += skrivUt;
-    }
 
 }
 
-function slettAlleBilletter() {
-    bestillingInformasjon.length = 0;
-    document.getElementById("bestillingsRegister").innerHTML = "";
 
 
+function Billett() {
+    if (riktig === true) {
+        const bestilling = {
+            film: $("#film").val(),
+            antall: $("#antall").val(),
+            fornavn: $("#fornavn").val(),
+            etternavn: $("#etternavn").val(),
+            telefonnr: $("#telefonnr").val(),
+            epost: $("#epost").val()
+        }
+        $.post("/lagre", bestilling, function () {
+            hentAlleData()
 
+        });
+    }
+        $("#film").val("blank");
+        $("#antall").val("");
+        $("#fornavn").val("");
+        $("#etternavn").val("");
+        $("#telefonnr").val("");
+        $("#epost").val("");
+
+};
+
+function hentAlleData(){
+    $.get("/hentData", function (data){
+        formaterData(data);
+    });
+}
+
+function formaterData(bestilling){
+
+         let ut = "<table><tr><th><div class='col-md-1' style='color: dimgrey'>Film</div></th>" +
+             "<th><div class='col-md-1' style='color: dimgrey'>Antall</div></th>" +
+             "<th><div class='col-md-1' style='color: dimgrey'>Fornavn</div></th>" +
+             "<th><div class='col-md-1' style='color: dimgrey'>Etternavn</div</th>" +
+             "<th><div class='col-md-1' style='color: dimgrey'>Telefonnr</th>" +
+             "<th><div class='col-md-1' style='color: dimgrey'>Epost</th>"
+
+         for (const billett of bestilling) {
+
+             ut += "<tr><td>" + billett.film +
+                 "</td><td>" + billett.antall +
+                 "</td><td>" + billett.fornavn +
+                 "</td><td>" + billett.etternavn +
+                 "</td><td>" + billett.telefonnr +
+                 "</td><td>" + billett.epost +
+                 "</td></tr>";
+         }
+    ut+="</table>";
+
+    $("#bestillingsRegister").html(ut);
+}
+
+function slettBillett(){
+    $.get("/slett", function (){
+        hentAlleData();
+
+    });
 }
